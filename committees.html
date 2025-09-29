@@ -790,6 +790,37 @@
     </footer>
 
     <script>
+        // Preload all committee images for instant loading
+        function preloadImages() {
+            const imagesToPreload = [
+                'unhrc-poster.jpg',
+                'disec-poster.jpg',
+                'unoosa-poster.jpg',
+                'loksabha-poster.jpg',
+                'who-poster.jpg',
+                'unodc-poster.jpg',
+                'hcc-poster.png',
+                'ecosoc-poster.png',
+                'uncsw-poster.png'
+            ];
+            
+            imagesToPreload.forEach(imageSrc => {
+                const img = new Image();
+                img.onload = () => {
+                    console.log(`Preloaded: ${imageSrc}`);
+                };
+                img.onerror = () => {
+                    console.warn(`Failed to preload: ${imageSrc} - Image will load normally when needed`);
+                };
+                // Set a timeout to prevent hanging on slow connections
+                setTimeout(() => {
+                    img.src = imageSrc;
+                }, Math.random() * 100); // Stagger loading to avoid overwhelming the browser
+            });
+            
+            console.log('Image preloading initiated for committee posters');
+        }
+
         // Committee data with agenda and background guide information
         const committeeData = {
             ip: {
@@ -901,6 +932,21 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeModal();
+            }
+        });
+
+        // Initialize preloading when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start preloading images after a short delay to not interfere with initial page load
+            setTimeout(preloadImages, 500);
+        });
+
+        // Also preload when window loads (as backup)
+        window.addEventListener('load', function() {
+            // Only preload if not already done
+            if (!window.imagesPreloaded) {
+                preloadImages();
+                window.imagesPreloaded = true;
             }
         });
     </script>
