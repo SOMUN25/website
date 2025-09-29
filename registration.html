@@ -2127,9 +2127,64 @@
     }
 
     // Initialize everything when DOM is loaded
+    // Proactive blocking detection on page load
+    async function checkPageLoadBlocking() {
+      // Wait a moment for page to fully load
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const issues = await detectThirdPartyBlocking();
+      if (issues.length > 0) {
+        // Show a subtle notification about potential issues
+        const warningDiv = document.createElement('div');
+        warningDiv.id = 'load-warning';
+        warningDiv.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: rgba(255, 193, 7, 0.9);
+          color: #000;
+          padding: 12px 16px;
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+          z-index: 10000;
+          max-width: 300px;
+          font-size: 14px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        `;
+        
+        warningDiv.innerHTML = `
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <span style="margin-right: 8px;">⚠️</span>
+            <strong>Potential Submission Issues</strong>
+            <span style="margin-left: auto; font-size: 18px;">×</span>
+          </div>
+          <div style="font-size: 12px;">${issues.length} issue(s) detected. Click for details.</div>
+        `;
+        
+        warningDiv.onclick = function() {
+          showBlockingWarning(issues);
+          warningDiv.remove();
+        };
+        
+        document.body.appendChild(warningDiv);
+        
+        // Auto-hide after 10 seconds
+        setTimeout(() => {
+          if (warningDiv.parentNode) {
+            warningDiv.style.opacity = '0';
+            setTimeout(() => warningDiv.remove(), 300);
+          }
+        }, 10000);
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
       // Initialize first step
       showStep(0);
+      
+      // Check for blocking issues after page loads
+      checkPageLoadBlocking();
     });
 
     // Show specific step with subtle transitions
@@ -2553,11 +2608,140 @@
     });
 
     // Form submission
+    // Third-party service detector function
+    async function detectThirdPartyBlocking() {
+      const issues = [];
+      
+      try {
+        // Test Google Script connectivity
+        const testUrl = 'https://script.google.com/macros/s/AKfycbyPIjxQy3_Iw79BEAd6OIEz5iU5JG1bhVpRAdZWpBOsPedLgzvbCJhiiI1Mx1tm72_U/exec';
+        
+        // Create a test request with timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+        
+        try {
+          const response = await fetch(testUrl, {
+            method: 'HEAD',
+            mode: 'no-cors', // This will succeed even if CORS is blocked
+            signal: controller.signal
+          });
+          clearTimeout(timeoutId);
+        } catch (fetchError) {
+          clearTimeout(timeoutId);
+          if (fetchError.name === 'AbortError') {
+            issues.push('Google Scripts may be blocked or unreachable (timeout)');
+          } else {
+            issues.push('Google Scripts connectivity test failed');
+          }
+        }
+        
+        // Test if third-party cookies are blocked
+        try {
+          const testCookie = 'test_cookie=test_value; SameSite=None; Secure';
+          document.cookie = testCookie;
+          if (!document.cookie.includes('test_cookie=test_value')) {
+            issues.push('Third-party cookies appear to be blocked');
+          } else {
+            // Clean up test cookie
+            document.cookie = 'test_cookie=; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Secure';
+          }
+        } catch (cookieError) {
+          issues.push('Cookie functionality may be restricted');
+        }
+        
+        // Check if running in private/incognito mode
+        if (navigator.webdriver || window.navigator.webdriver) {
+          issues.push('Browser may be in automation mode');
+        }
+        
+        // Check for common ad blockers or privacy extensions
+        const testElements = [
+          { selector: 'iframe[src*="google"]', issue: 'Google services may be blocked by ad blocker' },
+          { selector: 'script[src*="google"]', issue: 'Google scripts may be blocked' }
+        ];
+        
+        testElements.forEach(test => {
+          const elements = document.querySelectorAll(test.selector);
+          if (elements.length === 0) {
+            // This is normal, but we can still check if they would be blocked
+          }
+        });
+        
+        // Test localStorage availability
+        try {
+          localStorage.setItem('test_storage', 'test');
+          localStorage.removeItem('test_storage');
+        } catch (storageError) {
+          issues.push('Local storage may be disabled');
+        }
+        
+      } catch (generalError) {
+        issues.push('Unable to perform complete connectivity test');
+      }
+      
+      return issues;
+    }
+
+    // Show blocking detection warning
+    function showBlockingWarning(issues) {
+      const warningHtml = `
+        <div style="background: rgba(255, 193, 7, 0.1); border: 1px solid #ffc107; border-radius: 8px; padding: 16px; margin: 16px 0; color: #ffc107;">
+          <h4 style="margin: 0 0 12px 0; display: flex; align-items: center;">
+            <span style="margin-right: 8px;">⚠️</span> Potential Submission Issues Detected
+          </h4>
+          <p style="margin: 0 0 12px 0;">The following issues may prevent your registration from being submitted:</p>
+          <ul style="margin: 0 0 12px 0; padding-left: 20px;">
+            ${issues.map(issue => `<li>${issue}</li>`).join('')}
+          </ul>
+          <p style="margin: 0; font-size: 14px;">
+            <strong>Recommendations:</strong><br>
+            • Try disabling ad blockers or privacy extensions temporarily<br>
+            • Use a different browser or incognito/private mode<br>
+            • Check your internet connection<br>
+            • Contact support if issues persist
+          </p>
+        </div>
+      `;
+      
+      // Insert warning before the form
+      const form = document.getElementById('registration-form');
+      const existingWarning = document.getElementById('blocking-warning');
+      if (existingWarning) {
+        existingWarning.remove();
+      }
+      
+      const warningDiv = document.createElement('div');
+      warningDiv.id = 'blocking-warning';
+      warningDiv.innerHTML = warningHtml;
+      form.parentNode.insertBefore(warningDiv, form);
+      
+      // Scroll to warning
+      warningDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
     document.getElementById('registration-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       
       if (!validateCurrentStep()) {
         return;
+      }
+
+      // Check for third-party blocking before submission
+      const blockingIssues = await detectThirdPartyBlocking();
+      if (blockingIssues.length > 0) {
+        showBlockingWarning(blockingIssues);
+        
+        // Ask user if they want to proceed anyway
+        const proceed = confirm(
+          `Warning: ${blockingIssues.length} potential issue(s) detected that may prevent submission.\n\n` +
+          `Issues:\n• ${blockingIssues.join('\n• ')}\n\n` +
+          `Do you want to try submitting anyway? (Check the warning above for solutions)`
+        );
+        
+        if (!proceed) {
+          return;
+        }
       }
 
       submitBtn.disabled = true;
@@ -2644,14 +2828,67 @@
           document.body.removeChild(iframe);
         }, 2000);
         
+        // Wait a moment for submission to process
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
         // Show success message
         customAlert('Registration submitted successfully! You will receive a confirmation email soon.', 'Success');
         document.getElementById('registration-form').reset();
         currentStep = 0;
         showStep(currentStep);
+        
+        // Remove any existing warnings
+        const existingWarning = document.getElementById('blocking-warning');
+        if (existingWarning) {
+          existingWarning.remove();
+        }
+        
       } catch (error) {
         console.error('Submission error:', error);
-        customAlert('Submission failed. Please check your internet connection and try again.', 'Submission Error');
+        
+        // Provide alternative submission methods
+        const alternativeSubmissionHtml = `
+          <div style="background: rgba(220, 53, 69, 0.1); border: 1px solid #dc3545; border-radius: 8px; padding: 16px; margin: 16px 0; color: #dc3545;">
+            <h4 style="margin: 0 0 12px 0; display: flex; align-items: center;">
+              <span style="margin-right: 8px;">❌</span> Submission Failed
+            </h4>
+            <p style="margin: 0 0 12px 0;">Your registration could not be submitted through the normal process. This may be due to browser restrictions or network issues.</p>
+            
+            <div style="background: rgba(255, 255, 255, 0.05); border-radius: 6px; padding: 12px; margin: 12px 0;">
+              <h5 style="margin: 0 0 8px 0; color: #ffc107;">📧 Alternative Submission Methods:</h5>
+              <p style="margin: 0 0 8px 0; font-size: 14px;"><strong>1. Email Submission:</strong></p>
+              <button onclick="generateEmailSubmission()" style="background: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin: 4px 0;">
+                📧 Generate Email Submission
+              </button>
+              
+              <p style="margin: 12px 0 8px 0; font-size: 14px;"><strong>2. Download Your Data:</strong></p>
+              <button onclick="downloadFormData()" style="background: #17a2b8; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin: 4px 0;">
+                💾 Download Registration Data
+              </button>
+              
+              <p style="margin: 12px 0 0 0; font-size: 12px; color: #6c757d;">
+                Contact support at <strong>contact@somun.in</strong> with your downloaded data or use the email submission option.
+              </p>
+            </div>
+          </div>
+        `;
+        
+        // Show alternative submission options
+        const form = document.getElementById('registration-form');
+        const existingError = document.getElementById('submission-error');
+        if (existingError) {
+          existingError.remove();
+        }
+        
+        const errorDiv = document.createElement('div');
+        errorDiv.id = 'submission-error';
+        errorDiv.innerHTML = alternativeSubmissionHtml;
+        form.parentNode.insertBefore(errorDiv, form.nextSibling);
+        
+        // Scroll to error message
+        errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        customAlert('Submission failed. Please check the alternative methods shown below.', 'Submission Error');
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit Registration';
@@ -2869,6 +3106,99 @@ Thank you!`);
           showStep(0);
         }
       }, 100);
+    }
+
+    // Alternative submission helper functions
+    function generateEmailSubmission() {
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        school: document.getElementById('school').value,
+        committee1: document.getElementById('committee1').value,
+        country1: document.getElementById('country1').value,
+        committee2: document.getElementById('committee2').value,
+        country2: document.getElementById('country2').value,
+        committee3: document.getElementById('committee3').value,
+        country3: document.getElementById('country3').value,
+        mun_exp: document.querySelector('input[name="mun_exp"]:checked')?.value || '',
+        mun_details: document.getElementById('mun_details').value,
+        diet: document.getElementById('diet').value,
+        payment_code: uniquePaymentCode || 'Not Generated'
+      };
+      
+      const emailSubject = `SOMUN 2025 Registration - ${formData.name}`;
+      const emailBody = `Dear SOMUN Team,
+
+I am submitting my registration for SOMUN 2025. Please find my details below:
+
+PERSONAL INFORMATION:
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+School: ${formData.school}
+
+COMMITTEE PREFERENCES:
+1st Choice: ${formData.committee1} - ${formData.country1}
+2nd Choice: ${formData.committee2} - ${formData.country2}
+3rd Choice: ${formData.committee3} - ${formData.country3}
+
+MUN EXPERIENCE:
+Experience Level: ${formData.mun_exp}
+Details: ${formData.mun_details || 'Not provided'}
+
+DIETARY PREFERENCES:
+${formData.diet}
+
+PAYMENT INFORMATION:
+Payment Code: ${formData.payment_code}
+
+Note: I will attach the payment screenshot separately. This submission is due to technical difficulties with the online form.
+
+Best regards,
+${formData.name}`;
+
+      const mailtoLink = `mailto:contact@somun.in?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      
+      // Open email client
+      window.location.href = mailtoLink;
+      
+      showNotification('Email client opened. Please attach your payment screenshot before sending.', 'success');
+    }
+    
+    function downloadFormData() {
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        school: document.getElementById('school').value,
+        committee1: document.getElementById('committee1').value,
+        country1: document.getElementById('country1').value,
+        committee2: document.getElementById('committee2').value,
+        country2: document.getElementById('country2').value,
+        committee3: document.getElementById('committee3').value,
+        country3: document.getElementById('country3').value,
+        mun_exp: document.querySelector('input[name="mun_exp"]:checked')?.value || '',
+        mun_details: document.getElementById('mun_details').value,
+        diet: document.getElementById('diet').value,
+        payment_code: uniquePaymentCode || 'Not Generated',
+        submission_date: new Date().toISOString(),
+        browser_info: navigator.userAgent
+      };
+      
+      // Create downloadable JSON file
+      const dataStr = JSON.stringify(formData, null, 2);
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(dataBlob);
+      link.download = `SOMUN_2025_Registration_${formData.name.replace(/[^a-zA-Z0-9]/g, '_')}_${new Date().toISOString().split('T')[0]}.json`;
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      showNotification('Registration data downloaded. Please email this file to contact@somun.in', 'success');
     }
   </script>
 
