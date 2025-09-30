@@ -160,11 +160,110 @@
             font-weight: 600;
         }
 
+        /* Delegate Handbook Section */
+        .handbook-section {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .handbook-container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(204, 23, 30, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(204, 23, 30, 0.15);
+        }
+
+        .handbook-container h2 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+        }
+
+        .handbook-container p {
+            color: var(--text);
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .handbook-btn {
+            background: var(--gradient);
+            border: none;
+            border-radius: 15px;
+            padding: 1.2rem 2rem;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 0 auto;
+            font-family: 'Source Sans Pro', sans-serif;
+            box-shadow: 0 4px 15px rgba(204, 23, 30, 0.3);
+        }
+
+        .handbook-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(204, 23, 30, 0.4);
+        }
+
+        .handbook-icon {
+            font-size: 2rem;
+        }
+
+        .handbook-text {
+            text-align: left;
+        }
+
+        .handbook-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .handbook-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
         @media (max-width: 768px) {
             .instruction-text {
                 margin: 0 1rem 2rem 1rem;
                 padding: 1.2rem 1.5rem;
                 font-size: 1.1rem;
+            }
+
+            .handbook-section {
+                padding: 0 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .handbook-container {
+                padding: 1.5rem;
+            }
+
+            .handbook-container h2 {
+                font-size: 1.8rem;
+            }
+
+            .handbook-btn {
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .handbook-text {
+                text-align: center;
             }
         }
 
@@ -288,6 +387,160 @@
 
         .committee-card {
             cursor: pointer;
+        }
+
+        /* Handbook Modal Styles */
+        .handbook-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .handbook-modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .handbook-modal-content {
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid rgba(204, 23, 30, 0.3);
+            border-radius: 20px;
+            width: 95vw;
+            height: 95vh;
+            max-width: 1200px;
+            max-height: 900px;
+            position: relative;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 80px rgba(204, 23, 30, 0.4);
+        }
+
+        .handbook-modal-overlay.active .handbook-modal-content {
+            transform: scale(1);
+        }
+
+        .close-handbook-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2001;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-handbook-modal:hover {
+            color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .handbook-modal-header {
+            text-align: center;
+            padding: 2rem 2rem 1rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .handbook-modal-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+        }
+
+        .handbook-modal-header p {
+            color: var(--text);
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+
+        .handbook-pdf-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        .handbook-pdf-embed {
+            flex: 1;
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 1rem;
+        }
+
+        .handbook-actions {
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        .download-handbook-btn {
+            background: var(--gradient);
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .download-handbook-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(204, 23, 30, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .handbook-modal-content {
+                width: 98vw;
+                height: 98vh;
+                border-radius: 15px;
+            }
+
+            .handbook-modal-header {
+                padding: 1.5rem 1rem 1rem 1rem;
+            }
+
+            .handbook-modal-header h2 {
+                font-size: 2rem;
+            }
+
+            .close-handbook-modal {
+                top: 0.5rem;
+                right: 0.5rem;
+                font-size: 2rem;
+            }
         }
 
         /* Modal Styles */
@@ -645,6 +898,21 @@
         <h1>SOMUN 2025 Committees</h1>
     </header>
 
+    <!-- Delegate Handbook Section -->
+    <div class="handbook-section">
+        <div class="handbook-container">
+            <h2>📖 Delegate Handbook</h2>
+            <p>Essential guide for all SOMUN 2025 participants</p>
+            <button class="handbook-btn" onclick="openHandbookModal()">
+                <span class="handbook-icon">📄</span>
+                <div class="handbook-text">
+                    <div class="handbook-title">View Delegate Handbook</div>
+                    <div class="handbook-subtitle">Click to read the complete guide</div>
+                </div>
+            </button>
+        </div>
+    </div>
+
     <div class="instruction-text">
         <p>📋 <span class="highlight">Tap on any committee below</span> to view detailed information, agenda, and download the background guide for comprehensive preparation materials.</p>
     </div>
@@ -716,6 +984,25 @@
             <h2>UNCSW</h2>
             <h3>United Nations Commission on the Status of Women</h3>
             <p>Dedicated to advancing women's rights, gender equality, and empowerment through international cooperation, policy-making, and dialogue on issues affecting women globally.</p>
+        </div>
+    </div>
+
+    <!-- Handbook PDF Modal -->
+    <div class="handbook-modal-overlay" id="handbookModalOverlay">
+        <div class="handbook-modal-content">
+            <button class="close-handbook-modal" onclick="closeHandbookModal()">&times;</button>
+            <div class="handbook-modal-header">
+                <h2>📖 SOMUN 2025 Delegate Handbook</h2>
+                <p>Complete guide for all participants</p>
+            </div>
+            <div class="handbook-pdf-container">
+                <iframe id="handbookPDF" class="handbook-pdf-embed" src="delegate-handbook.pdf" frameborder="0"></iframe>
+                <div class="handbook-actions">
+                    <a href="delegate-handbook.pdf" class="download-handbook-btn" download>
+                        <span>📥</span> Download Handbook
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -921,6 +1208,27 @@
             }, 300);
         }
 
+        // Handbook modal functions
+        function openHandbookModal() {
+            const modal = document.getElementById('handbookModalOverlay');
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+            
+            // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeHandbookModal() {
+            const modal = document.getElementById('handbookModalOverlay');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
         // Close modal when clicking outside content
         document.getElementById('modalOverlay').addEventListener('click', function(e) {
             if (e.target === this) {
@@ -932,6 +1240,14 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeModal();
+                closeHandbookModal();
+            }
+        });
+
+        // Close handbook modal when clicking outside content
+        document.getElementById('handbookModalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeHandbookModal();
             }
         });
 
