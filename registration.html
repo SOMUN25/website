@@ -2614,7 +2614,7 @@
       
       try {
         // Test Google Script connectivity
-        const testUrl = 'https://script.google.com/macros/s/AKfycbwYaJ9ewt2h8be5ljNHHzHdIf4z82ZWruOQ6TfgLhKiNSz8GtzZNUiZUksGyK8Awtus/exec';
+        const testUrl = 'https://script.google.com/macros/s/AKfycbzgyNBj-LtHpPABxoyQ3y0SYSVvJYr5751qpllMr_XzzCdkecs-2pwjggcO5QveKqvB/exec';
         
         // Create a test request with timeout
         const controller = new AbortController();
@@ -2797,15 +2797,31 @@
         name: document.getElementById('name').value,
         email: document.getElementById('email').value,
         phone: document.getElementById('phone').value,
-        payment_code: uniquePaymentCode
+        payment_code: uniquePaymentCode,
+        screenshot_size: document.getElementById('screenshot').files[0]?.size || 'No file'
       });
+      
+      // Add submission tracking
+      const submissionId = `SUB_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      console.log('Submission ID:', submissionId);
 
       try {
         const screenshotFile = document.getElementById('screenshot').files[0];
         let screenshotBase64 = '';
         let screenshotFilename = '';
         
+        // Check file size (Google Apps Script has ~6MB limit for total payload)
+        if (screenshotFile && screenshotFile.size > 5 * 1024 * 1024) { // 5MB limit
+          updateStatus('❌ Screenshot file too large. Please use a file smaller than 5MB.', 'error');
+          throw new Error('File size exceeds 5MB limit');
+        }
+        
         if (screenshotFile) {
+          console.log('Processing screenshot file:', {
+            name: screenshotFile.name,
+            size: screenshotFile.size,
+            type: screenshotFile.type
+          });
           const reader = new FileReader();
           screenshotBase64 = await new Promise((resolve) => {
             reader.onload = () => resolve(reader.result);
@@ -2868,7 +2884,7 @@
           // Create a hidden form for submission
           const hiddenForm = document.createElement('form');
           hiddenForm.method = 'POST';
-          hiddenForm.action = 'https://script.google.com/macros/s/AKfycbwYaJ9ewt2h8be5ljNHHzHdIf4z82ZWruOQ6TfgLhKiNSz8GtzZNUiZUksGyK8Awtus/exec';
+          hiddenForm.action = 'https://script.google.com/macros/s/AKfycbzgyNBj-LtHpPABxoyQ3y0SYSVvJYr5751qpllMr_XzzCdkecs-2pwjggcO5QveKqvB/exec';
           hiddenForm.target = iframe.name;
           hiddenForm.style.display = 'none';
           
@@ -2944,12 +2960,18 @@
           
           // Append form and submit
           document.body.appendChild(hiddenForm);
-          console.log('Submitting form to Google Apps Script...');
+          console.log('Submitting form to Google Apps Script...', {
+            action: hiddenForm.action,
+            method: hiddenForm.method,
+            target: hiddenForm.target,
+            submissionId: submissionId
+          });
           hiddenForm.submit();
           
           // Wait for submission to complete
           await submissionPromise;
           submissionSuccessful = true;
+          console.log('✅ Submission completed successfully:', submissionId);
           
           // Clean up after a delay
           setTimeout(() => {
