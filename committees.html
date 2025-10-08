@@ -1029,15 +1029,15 @@
             <div class="modal-section">
                 <h4>Background Guide</h4>
                 <div class="background-guide">
-                    <p>The comprehensive background guide with detailed information and preparation materials will be available soon.</p>
-                    <div style="padding: 3rem 2rem; background: rgba(255, 255, 255, 0.05); border-radius: 15px; margin-top: 1rem;">
-                        <h3 style="color: var(--primary); font-size: 2rem; margin-bottom: 1rem; font-family: 'Lato', sans-serif;">Coming Soon</h3>
-                        <p style="opacity: 0.8; font-size: 1.1rem; line-height: 1.6;">Background guides are being prepared and will be released shortly. Stay tuned for comprehensive preparation materials!</p>
-                    </div>
-                    <!-- PDF embed and download button hidden for now -->
-                    <embed id="modalPDF" class="pdf-embed" src="" type="application/pdf" style="display: none;">
+                    <p>Access the comprehensive background guide for detailed information and preparation materials.</p>
+                    <embed id="modalPDF" class="pdf-embed" src="" type="application/pdf">
                     <br>
-                    <a id="modalDownload" class="download-btn" href="" download style="display: none;">Download Background Guide</a>
+                    <div id="singleGuideDownload">
+                        <a id="modalDownload" class="download-btn" href="" download>Download Background Guide</a>
+                    </div>
+                    <div id="multipleGuidesDownload" style="display: none;">
+                        <div id="guideLinks"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1116,7 +1116,12 @@
                 subtitle: "International Press",
                 description: "The International Press serves as the eyes and ears of the conference, documenting debates, conducting interviews, and providing comprehensive coverage of all committee proceedings.",
                 icon: "ip.png",
-                backgroundGuide: "ip-guide.pdf"
+                backgroundGuide: "ip-guide.pdf",
+                hasMultipleGuides: true,
+                guides: [
+                    { name: "IP Journalist Guide", file: "ip-journalist-guide.pdf" },
+                    { name: "IP Photojournalist Guide", file: "ip-photojournalist-guide.pdf" }
+                ]
             },
             unhrc: {
                 image: "unhrc-poster.jpg",
@@ -1184,9 +1189,40 @@
                 document.getElementById('modalImage').alt = committeeId.toUpperCase() + " Committee Poster";
             }
 
-            // Set background guide
-            document.getElementById('modalPDF').src = committee.backgroundGuide;
-            document.getElementById('modalDownload').href = committee.backgroundGuide;
+            // Handle background guides
+            const pdfEmbed = document.getElementById('modalPDF');
+            const singleGuideDiv = document.getElementById('singleGuideDownload');
+            const multipleGuidesDiv = document.getElementById('multipleGuidesDownload');
+            const guideLinksDiv = document.getElementById('guideLinks');
+
+            if (committee.hasMultipleGuides) {
+                // Hide PDF preview for IP
+                pdfEmbed.style.display = 'none';
+                singleGuideDiv.style.display = 'none';
+                multipleGuidesDiv.style.display = 'block';
+                
+                // Clear previous links
+                guideLinksDiv.innerHTML = '';
+                
+                // Add multiple download links
+                committee.guides.forEach(guide => {
+                    const downloadLink = document.createElement('a');
+                    downloadLink.className = 'download-btn';
+                    downloadLink.href = guide.file;
+                    downloadLink.download = '';
+                    downloadLink.textContent = guide.name;
+                    downloadLink.style.margin = '0.5rem';
+                    downloadLink.style.display = 'inline-block';
+                    guideLinksDiv.appendChild(downloadLink);
+                });
+            } else {
+                // Show PDF preview and single download for other committees
+                pdfEmbed.style.display = 'block';
+                pdfEmbed.src = committee.backgroundGuide;
+                singleGuideDiv.style.display = 'block';
+                multipleGuidesDiv.style.display = 'none';
+                document.getElementById('modalDownload').href = committee.backgroundGuide;
+            }
 
             // Show modal
             const modal = document.getElementById('modalOverlay');
