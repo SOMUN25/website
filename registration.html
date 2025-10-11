@@ -1805,9 +1805,6 @@
 
         <!-- Step 1: Committee Selection -->
         <div class="form-step" data-step="1">
-          <div class="info-box">
-            Please <strong>do not repeat committees</strong> in different preferences.
-          </div>
           <div class="form-group">
             <label>Preference 1 *</label>
             <div class="pref-row">
@@ -2475,20 +2472,7 @@
         }
       }
 
-      // Special validation for committee step
-      if (currentStep === 1) {
-        const committees = [
-          document.getElementById('committee1').value,
-          document.getElementById('committee2').value,
-          document.getElementById('committee3').value
-        ];
-        
-        const uniqueCommittees = new Set(committees.filter(c => c));
-        if (uniqueCommittees.size !== committees.filter(c => c).length) {
-          customAlert('Please select different committees for each preference.', 'Committee Selection Error');
-          return false;
-        }
-      }
+
 
       return true;
     }
