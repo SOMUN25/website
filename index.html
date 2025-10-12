@@ -282,6 +282,141 @@
             background: var(--gradient);
         }
 
+        .cta-section {
+            text-align: center;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--gradient);
+            color: var(--text);
+            padding: 1.2rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(204, 23, 30, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(204, 23, 30, 0.4);
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px);
+        }
+
+        .cta-button-secondary {
+            display: inline-block;
+            background: transparent;
+            color: var(--text);
+            padding: 1.2rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+        }
+
+        .cta-button-secondary:hover {
+            background: var(--gradient);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(204, 23, 30, 0.4);
+        }
+
+        .stats-section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(204, 23, 30, 0.2);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Lato', sans-serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(204, 23, 30, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .themed-icon {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            filter: drop-shadow(0 0 10px rgba(204, 23, 30, 0.3));
+        }
+
         .committees-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -311,10 +446,218 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             font-size: 1.8rem;
             font-family: 'Lato', sans-serif;
             font-weight: 700;
+        }
+
+        .committee-card p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .committee-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .show-all-card {
+            background: rgba(204, 23, 30, 0.1);
+            border: 2px solid var(--primary);
+        }
+
+        .show-all-btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: var(--text);
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        .show-all-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(204, 23, 30, 0.4);
+        }
+
+        .feature-card h3 {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+        }
+
+        .timeline-section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 3rem auto 0;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gradient);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-date {
+            flex: 0 0 120px;
+            background: var(--gradient);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            align-self: flex-start;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 0 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .timeline-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(204, 23, 30, 0.2);
+        }
+
+        .testimonial-content {
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-content p {
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author strong {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .testimonial-author span {
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        .cta-final {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .committees-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                flex-direction: row !important;
+            }
+
+            .timeline-date {
+                flex: 0 0 80px;
+                padding: 0.8rem 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            .timeline-content {
+                margin-left: 1rem;
+                margin-right: 0;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section {
+                flex-direction: column;
+            }
         }
 
         footer {
@@ -522,7 +865,8 @@
         <a href="committees.html">Committees</a>
         <a href="schedule.html">Schedule</a>
         <a href="registration.html">Register</a>
-        <a href="contact.html">Contact</a>
+        <a href="legal.html">Legal</a>
+        <a href="contact.html">Contact</a>
         </div>
     </div>
     </nav>
@@ -554,44 +898,153 @@
 
     <section class="section">
         <h2>Welcome to SOMUN</h2>
-        <p>Join us for one of India's most prestigious Model United Nations conferences, where future leaders gather to address global challenges and forge diplomatic solutions. Experience three days of intense debate, negotiation, and international cooperation.</p>
+        <p align="center">Join us for one of India's most prestigious Model United Nations conferences, where future leaders gather to address global challenges and forge diplomatic solutions. Experience three days of intense debate, negotiation, and international cooperation.</p>
     </section>
 
     <section class="section">
         <h2>Featured Committees</h2>
         <div class="committees-grid">
             <div class="committee-card">
-                <h3>IP</h3>
-                <p>International Press</p>
+                <h3>DISEC</h3>
+                <p>Disarmament and International Security Committee</p>
+                <div class="committee-description">
+                    Address global security challenges and disarmament initiatives in this premier security-focused committee.
+                </div>
             </div>
             <div class="committee-card">
                 <h3>UNHRC</h3>
                 <p>United Nations Human Rights Council</p>
-            </div>
-            <div class="committee-card">
-                <h3>DISEC</h3>
-                <p>Disarmament and International Security Committee</p>
-            </div>
-            <div class="committee-card">
-                <h3>UNOOSA</h3>
-                <p>United Nations Office For Outer Space Affairs</p>
-            </div>
-            <div class="committee-card">
-                <h3>Lok Sabha</h3>
-                <p>Lok Sabha</p>
+                <div class="committee-description">
+                    Champion human rights causes and address humanitarian crises affecting millions worldwide.
+                </div>
             </div>
             <div class="committee-card">
                 <h3>WHO</h3>
-                <p>World Health Organisation</p>
+                <p>World Health Organization</p>
+                <div class="committee-description">
+                    Tackle global health challenges and develop policies for worldwide health security and cooperation.
+                </div>
             </div>
-            <div class="committee-card">
-                <h3>UNODC</h3>
-                <p>United Nations Office for Drugs and Crime</p>
+            <div class="committee-card show-all-card">
+                <h3>Explore All</h3>
+                <p>8 Committees Available</p>
+                <div class="committee-description">
+                    Discover all committees including IP, UNOOSA, Lok Sabha, UNODC, ECOSOC, and HCC.
+                </div>
+                <a href="committees.html" class="show-all-btn">Show All Committees</a>
             </div>
-            <div class="committee-card">
-                <h3>HCC</h3>
-                <p>Hawkins Crisis Council</p>
+        </div>
+    </section>
+
+    <section class="section stats-section">
+        <h2>SOMUN By The Numbers</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">10</div>
+                <div class="stat-label">Committees</div>
             </div>
+            <div class="stat-card">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Delegates</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Days</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">18+</div>
+                <div class="stat-label">Hours of Debate</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Why Choose SOMUN?</h2>
+            <div class="feature-card">
+                <div class="feature-icon themed-icon">🌍</div>
+                <h3>Global Perspective</h3>
+                <p>Engage with international issues and develop a comprehensive understanding of global affairs through authentic diplomatic simulation.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon themed-icon">👥</div>
+                <h3>Networking</h3>
+                <p>Connect with like-minded individuals from diverse backgrounds and build lasting relationships with future leaders.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon themed-icon">⭐</div>
+                <h3>Recognition</h3>
+                <p>Outstanding delegates receive certificates and awards, recognizing their diplomatic excellence and contribution to debates.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section timeline-section">
+        <h2>Conference Schedule</h2>
+        <p align="center">Three intensive days of diplomatic engagement and international cooperation</p>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">Day 1</div>
+                <div class="timeline-content">
+                    <h3>Opening & Committee Sessions</h3>
+                    <p>Registration, opening ceremony, and initial committee sessions. Delegates present their position papers and begin preliminary debates.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Day 2</div>
+                <div class="timeline-content">
+                    <h3>Intensive Debates & SOCIAL NIGHT</h3>
+                    <p>Full day of committee sessions with moderated and unmoderated caucuses, working paper development, and coalition building.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Day 3</div>
+                <div class="timeline-content">
+                    <h3>Resolution & Closing</h3>
+                    <p>Final committee sessions, resolution voting, closing ceremony, and awards presentation for outstanding delegates.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section class="section">
+        <h2>What Our Delegates Say</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p>"lorem ipsum stg idk"</p> 
+                </div>
+                <div class="testimonial-author">
+                    <strong>sigmaboy69420</strong>
+                    <span>COMMITTEE NAME | YEAR</span>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p>"waw gais hello world"</p>
+                </div>
+                <div class="testimonial-author">
+                    <strong>wompwomp420</strong>
+                    <span>COMMITTEE NAME | YEAR</span>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p>"lorem ipsum dolor sit amet, yeah this shi"</p>
+                </div>
+                <div class="testimonial-author">
+                    <strong>lakakaballer10</strong>
+                    <span>COMMITTEE NAME | YEAR</span>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <section class="section cta-final">
+        <h2>Ready to Shape the Future?</h2>
+        <p>Join hundreds of aspiring diplomats at SOMUN 2025 and be part of meaningful discussions that matter. Your voice can make a difference.</p>
+        <div class="cta-section">
+            <a href="registration.html" class="cta-button">Register Now</a>
+            <a href="about.html" class="cta-button-secondary">Learn More</a>
         </div>
     </section>
 
@@ -603,7 +1056,8 @@
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="committees.html">Committees</a></li>
                     <li><a href="registration.html">Registration</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="legal.html">Legal</a>
+        <a href="contact.html">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-section">

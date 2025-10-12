@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#cc171e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Legal - SOMUN 2025</title>
+    <link rel="icon" type="image/x-icon" href="icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #cc171e;
+            --text: #FFFFFF;
+            --bg: #000000;
+            --gradient: linear-gradient(45deg, #cc171e, #ff4b4b);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        nav {
+            padding: 1.2rem 2rem;
+            background-color: rgba(0, 0, 0, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-container {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+        
+        .hamburger {
+          display: none;
+          font-size: 2rem;
+          cursor: pointer;
+          color: var(--text);
+        }
+        
+        /* Default (desktop) */
+        .nav-links {
+          display: flex;
+          gap: 1rem;
+        }
+        
+        /* Mobile fix */
+        @media (max-width: 768px) {
+          .hamburger {
+            display: block;
+          }
+          .nav-links {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.98);
+            flex-direction: column;
+            padding: 1rem 0;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+          }
+          .nav-links.active {
+            display: flex;
+          }
+          .nav-links a {
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          }
+          .nav-links a:last-child {
+            border-bottom: none;
+          }
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(204, 23, 30, 0.3), rgba(0, 0, 0, 0.8));
+            text-align: center;
+            padding: 8rem 2rem 6rem;
+            margin-top: 4rem;
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Lato', sans-serif;
+            font-weight: 900;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.8rem;
+                margin-bottom: 0.8rem;
+            }
+        }
+
+        .instruction-text {
+            text-align: center;
+            max-width: 800px;
+            margin: 4rem auto 5rem auto;
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: var(--text);
+            opacity: 0.9;
+            box-shadow: 0 4px 20px rgba(204, 23, 30, 0.1);
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .instruction-text .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .legal-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .legal-container {
+                margin: 1rem auto;
+                padding: 1rem;
+                gap: 1.5rem;
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .legal-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px 0 rgba(41, 41, 41, 0.37);
+            position: relative;
+            cursor: pointer;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .legal-card:nth-child(1) { animation-delay: 0.1s; }
+        .legal-card:nth-child(2) { animation-delay: 0.2s; }
+        .legal-card:nth-child(3) { animation-delay: 0.3s; }
+
+        /* Tablet Landscape */
+        @media (max-width: 1024px) {
+            .legal-container {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 1.5rem;
+                padding: 1.5rem;
+            }
+            
+            .modal-content {
+                width: 90vw;
+                height: 90vh;
+                max-width: 900px;
+                max-height: 700px;
+                padding: 1rem;
+            }
+        }
+
+        /* Tablet Portrait */
+        @media (max-width: 768px) {
+            .header {
+                padding: 6rem 1.5rem 4rem;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .instruction-text {
+                margin: 2rem auto 3rem auto;
+                padding: 1.2rem 1.5rem;
+                font-size: 1.1rem;
+            }
+            
+            .legal-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 1rem;
+                margin: 1rem auto;
+            }
+            
+            .legal-card {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+                border-radius: 15px;
+            }
+            
+            .legal-card h2 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+            
+            .legal-card p {
+                font-size: 1rem;
+                line-height: 1.5;
+                margin-bottom: 1rem;
+            }
+            
+            .click-hint {
+                margin-top: 1.2rem;
+                padding: 0.7rem 1.2rem;
+                font-size: 0.85rem;
+            }
+            
+            .modal-content {
+                width: 95vw;
+                height: 90vh;
+                max-width: none;
+                max-height: none;
+                border-radius: 15px;
+                padding: 0.8rem;
+            }
+            
+            .modal-header {
+                padding: 1rem 0.8rem 0.5rem 0.8rem;
+            }
+            
+            .modal-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .close-modal {
+                top: 0.5rem;
+                right: 0.5rem;
+                font-size: 2rem;
+            }
+        }
+
+        /* Large Phones */
+        @media (max-width: 480px) {
+            .header {
+                padding: 5rem 1rem 3rem;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+                line-height: 1.2;
+            }
+            
+            .instruction-text {
+                margin: 1.5rem auto 2.5rem auto;
+                padding: 1rem 1.2rem;
+                font-size: 1rem;
+                border-radius: 12px;
+            }
+            
+            .legal-container {
+                padding: 0.5rem;
+                gap: 1.2rem;
+            }
+            
+            .legal-card {
+                padding: 1.2rem;
+                margin-bottom: 1.2rem;
+                border-radius: 12px;
+            }
+            
+            .legal-card h2 {
+                font-size: 1.6rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .legal-card p {
+                font-size: 0.95rem;
+                line-height: 1.4;
+                margin-bottom: 0.8rem;
+            }
+            
+            .click-hint {
+                margin-top: 1rem;
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+                border-radius: 6px;
+            }
+            
+            .modal-content {
+                width: 98vw;
+                height: 95vh;
+                border-radius: 12px;
+                padding: 0.5rem;
+            }
+            
+            .modal-header {
+                padding: 0.8rem 0.5rem 0.5rem 0.5rem;
+            }
+            
+            .modal-header h2 {
+                font-size: 1.6rem;
+                line-height: 1.2;
+            }
+            
+            .modal-header p {
+                font-size: 1rem;
+            }
+            
+            .close-modal {
+                top: 0.3rem;
+                right: 0.3rem;
+                font-size: 1.8rem;
+                width: 35px;
+                height: 35px;
+            }
+            
+            .pdf-container {
+                padding: 0.3rem;
+            }
+            
+            .download-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+                border-radius: 20px;
+            }
+        }
+
+        /* Small Phones */
+        @media (max-width: 360px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .instruction-text {
+                font-size: 0.95rem;
+                padding: 0.8rem 1rem;
+            }
+            
+            .legal-card {
+                padding: 1rem;
+            }
+            
+            .legal-card h2 {
+                font-size: 1.4rem;
+            }
+            
+            .legal-card p {
+                font-size: 0.9rem;
+            }
+            
+            .click-hint {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.75rem;
+            }
+            
+            .modal-header h2 {
+                font-size: 1.6rem;
+            }
+            
+            .modal-header p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Landscape phones */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .header {
+                padding: 4rem 1rem 2rem;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .instruction-text {
+                margin: 1rem auto 2rem auto;
+            }
+            
+            .legal-container {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1rem;
+            }
+            
+            .modal-content {
+                width: 95vw;
+                height: 95vh;
+                padding: 0.8rem;
+            }
+        }
+
+        .legal-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px 0 rgba(204, 23, 30, 0.3);
+            border: 1px solid rgba(204, 23, 30, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .legal-card:active {
+            transform: translateY(-1px);
+            transition: all 0.1s ease;
+        }
+
+        .legal-card h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+        }
+
+        .legal-card p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .legal-card:hover p {
+            opacity: 1;
+        }
+
+        .click-hint {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(204, 23, 30, 0.08);
+            border: 1px solid rgba(204, 23, 30, 0.2);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+
+        .legal-card:hover .click-hint {
+            background: rgba(204, 23, 30, 0.15);
+            border-color: rgba(204, 23, 30, 0.4);
+            opacity: 1;
+        }
+
+        .click-icon {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .legal-card:hover .click-icon {
+            transform: translateX(2px);
+        }
+
+        @media (max-width: 768px) {
+            .legal-card h2 {
+                font-size: 1.6rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .legal-card p {
+                font-size: 1rem;
+                line-height: 1.5;
+                margin-bottom: 0.8rem;
+            }
+
+            .click-hint {
+                margin-top: 1rem;
+                padding: 0.6rem 1.2rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 1rem;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            opacity: 0;
+            box-shadow: 0 20px 60px rgba(204, 23, 30, 0.4);
+            width: 95vw;
+            height: 95vh;
+            max-width: 1200px;
+            max-height: 900px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            text-align: center;
+            padding: 1rem 1rem 0.5rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+        }
+
+        .modal-header p {
+            color: var(--text);
+            opacity: 0.8;
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        .pdf-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 0.5rem;
+        }
+
+        .pdf-embed {
+            flex: 1;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem 0;
+        }
+
+        .download-btn {
+            background: var(--gradient);
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(204, 23, 30, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 98vw;
+                height: 98vh;
+                border-radius: 15px;
+            }
+
+            .modal-header {
+                padding: 1.5rem 1rem 1rem 1rem;
+            }
+
+            .modal-header h2 {
+                font-size: 2rem;
+            }
+
+            .close-modal {
+                top: 0.5rem;
+                right: 0.5rem;
+                font-size: 2rem;
+            }
+        }
+
+        footer {
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(20,20,20,1) 100%);
+            color: var(--text);
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h3 {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s;
+            opacity: 0.8;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--primary);
+            opacity: 1;
+        }
+
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.8;
+        }
+
+        .copyright p {
+            margin-bottom: 0.5rem;
+        }
+
+        .copyright a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .copyright a:hover {
+            color: var(--primary);
+        }
+
+        /* Professional Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Enhanced header animation */
+        .header h1 {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+
+
+        /* Touch-friendly improvements */
+        .legal-card {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .legal-card:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        .click-hint {
+            -webkit-tap-highlight-color: transparent;
+            pointer-events: none;
+        }
+
+        .close-modal {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            min-width: 44px;
+            min-height: 44px;
+        }
+
+        .download-btn {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            min-height: 44px;
+        }
+        
+    </style>
+</head>
+<body>
+    <nav>
+    <div class="nav-container">
+        <div class="hamburger" onclick="toggleMenu()">
+        ☰
+        </div>
+        <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="committees.html">Committees</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="registration.html">Register</a>
+        <a href="legal.html">Legal</a>
+        <a href="contact.html">Contact</a>
+        </div>
+    </div>
+    </nav>
+
+    <script>
+    function toggleMenu() {
+        const navLinks = document.getElementById('nav-links');
+        navLinks.classList.toggle('active');
+    }
+    </script>
+
+    <div class="header">
+        <h1>Legal Documentation</h1>
+    </div>
+
+    <div class="instruction-text">
+        All participants must review and complete the following <span class="highlight">required legal forms</span> before attending SOMUN 2025. Click on each section below to view and download the necessary documents.
+    </div>
+
+    <div class="legal-container">
+        <div class="legal-card" onclick="openModal('conduct')">
+            <div class="card-content">
+                <h2>Code of Conduct</h2>
+                <p>Review our comprehensive code of conduct that outlines expected behavior, ethical guidelines, and standards for all participants during SOMUN 2025.</p>
+                <p><strong>Required for all participants</strong></p>
+                <div class="click-hint">
+                    <span class="click-icon">→</span>
+                    <span>Click to view & download</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="legal-card" onclick="openModal('liability')">
+            <div class="card-content">
+                <h2>Liability Waiver</h2>
+                <p>Important liability release forms that must be completed by all participants (or parents/guardians for minors) to participate in SOMUN 2025.</p>
+                <p><strong>Required for all participants</strong></p>
+                <div class="click-hint">
+                    <span class="click-icon">→</span>
+                    <span>Click to view & download</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="legal-card" onclick="openModal('transport')">
+            <div class="card-content">
+                <h2>Transport Forms</h2>
+                <p>Transportation consent and liability forms covering travel arrangements, safety protocols, and emergency procedures for SOMUN 2025.</p>
+                <p><strong>Required for participants using official transport</strong></p>
+                <div class="click-hint">
+                    <span class="click-icon">→</span>
+                    <span>Click to view & download</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code of Conduct Modal -->
+    <div class="modal-overlay" id="conductModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('conduct')">&times;</button>
+            <div class="modal-header">
+                <h2>Code of Conduct</h2>
+                <p>SOMUN 2025 - Participant Code of Conduct</p>
+            </div>
+            <div class="pdf-container">
+                <iframe class="pdf-embed" src="code-of-conduct.pdf" type="application/pdf">
+                    <p>Your browser does not support PDFs. <a href="code-of-conduct.pdf">Download the PDF</a>.</p>
+                </iframe>
+                <div class="modal-actions">
+                    <a href="code-of-conduct.pdf" class="download-btn" download>
+                        📄 Download Code of Conduct
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Liability Modal -->
+    <div class="modal-overlay" id="liabilityModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('liability')">&times;</button>
+            <div class="modal-header">
+                <h2>Liability Waiver</h2>
+                <p>SOMUN 2025 - Liability Release Forms</p>
+            </div>
+            <div class="pdf-container">
+                <iframe class="pdf-embed" src="liability-waiver.pdf" type="application/pdf">
+                    <p>Your browser does not support PDFs. <a href="liability-waiver.pdf">Download the PDF</a>.</p>
+                </iframe>
+                <div class="modal-actions">
+                    <a href="liability-waiver.pdf" class="download-btn" download>
+                        📄 Download Liability Waiver
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transport Modal -->
+    <div class="modal-overlay" id="transportModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('transport')">&times;</button>
+            <div class="modal-header">
+                <h2>Transport Forms</h2>
+                <p>SOMUN 2025 - Transportation Consent & Safety Forms</p>
+            </div>
+            <div class="pdf-container">
+                <iframe class="pdf-embed" src="transport-forms.pdf" type="application/pdf">
+                    <p>Your browser does not support PDFs. <a href="transport-forms.pdf">Download the PDF</a>.</p>
+                </iframe>
+                <div class="modal-actions">
+                    <a href="transport-forms.pdf" class="download-btn" download>
+                        📄 Download Transport Forms
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="committees.html">Committees</a></li>
+                    <li><a href="registration.html">Registration</a></li>
+                    <li><a href="legal.html">Legal</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li><a href="mailto:somunprteam@gmail.com">somunprteam@gmail.com</a></li>
+                    <li>Phone: USG PR | Seiona Jacob | +91 73372 13122</li>
+                    <li>Phone: USG PR | Keshav Agarwal | +91 81436 02940</li>
+                    <li><a href="https://maps.app.goo.gl/t2dSAyyRV1p8yjdA9" target="_blank">Silver Oaks International School, Oakwinds, Hyderabad, India - 500043</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <ul>
+                    <li><a href="https://www.instagram.com/somunhyd/" target="_blank">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 SOMUN. All rights reserved.</p>
+            <p><a href="terms.html">Terms & Conditions</a></p>
+        </div>
+    </footer>
+
+    <script>
+        function openModal(type) {
+            console.log('Opening modal:', type);
+            const modal = document.getElementById(type + 'Modal');
+            console.log('Modal element:', modal);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                console.log('Modal classes:', modal.classList);
+            }
+        }
+
+        function closeModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                const activeModal = document.querySelector('.modal-overlay.active');
+                if (activeModal) {
+                    const modalId = activeModal.id.replace('Modal', '');
+                    closeModal(modalId);
+                }
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const activeModal = document.querySelector('.modal-overlay.active');
+                if (activeModal) {
+                    const modalId = activeModal.id.replace('Modal', '');
+                    closeModal(modalId);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
