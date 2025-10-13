@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         :root { 
             --primary: #cc171e; 
@@ -29,25 +28,11 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-        }
-
-        #globe-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            opacity: 0.8;
         }
 
         nav { 
-            position: relative;
-            z-index: 3;
             padding: 1.5rem 2rem; 
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.95);
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
@@ -117,99 +102,208 @@
         }
 
 
-        .coming-soon {
-            position: relative;
-            z-index: 2;
+        .schedule-container {
             flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
             padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .coming-soon h1 {
-            font-size: 5rem;
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
             color: #ffffff;
             font-family: 'Lato', sans-serif;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 15px;
+            letter-spacing: 8px;
             text-shadow: 0 0 15px rgba(255,255,255,0.3);
-            animation: float 6s ease-in-out infinite;
-            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+        }
+
+        .groups-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .group-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .group-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .group-title {
+            font-size: 2rem;
+            color: var(--primary);
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .committee-logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .committee-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            padding: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .committee-logo:hover {
+            transform: scale(1.1);
+        }
+
+        .committee-names {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.9);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .day-schedule {
+            margin-bottom: 2.5rem;
+        }
+
+        .day-header {
+            background: linear-gradient(135deg, var(--primary), #990000);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .schedule-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background: rgba(255,255,255,0.03);
+            border-left: 3px solid var(--primary);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-item:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateX(5px);
+        }
+
+        .time {
+            color: var(--primary);
+            font-weight: 700;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            min-width: 140px;
+            margin-right: 1.5rem;
+        }
+
+        .activity {
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .highlight-activity {
+            color: #ffffff;
+            font-weight: 600;
         }
 
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-10px); }
             100% { transform: translateY(0px); }
         }
 
-        footer {
-            position: relative;
-            z-index: 3;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
+        .floating {
+            animation: float 6s ease-in-out infinite;
         }
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            color: rgba(255,255,255,0.7);
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        .copyright {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            opacity: 0.8;
-        }
-
-        .copyright p {
-            margin-bottom: 0.5rem;
-        }
-
-        .copyright a {
-            color: var(--text);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .copyright a:hover {
-            color: var(--primary);
+        @media (max-width: 1024px) {
+            .groups-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+                letter-spacing: 4px;
+            }
         }
 
         @media (max-width: 768px) {
-            .coming-soon h1 {
-                font-size: 2.5rem;
-                letter-spacing: 6px;
+            .schedule-container {
+                padding: 1rem;
             }
-
-            #globe-container {
-                transform: scale(0.7);
+            
+            .page-header h1 {
+                font-size: 2rem;
+                letter-spacing: 2px;
+            }
+            
+            .group-title {
+                font-size: 1.5rem;
+            }
+            
+            .committee-logo {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .schedule-item {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+            
+            .time {
+                min-width: auto;
+                margin-right: 0;
+                margin-bottom: 0.5rem;
             }
 
             .nav-links {
                 flex-wrap: wrap;
                 justify-content: center;
                 gap: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .coming-soon h1 {
-                font-size: 2rem;
-                letter-spacing: 4px;
-            }
-
-            #globe-container {
-                transform: scale(0.5);
             }
         } 
         footer { background-color: var(--bg); color: var(--text); text-align: center; padding: 3rem 2rem; margin-top: 4rem; border-top: 1px solid rgba(255,255,255,0.1); font-family: 'Source Sans Pro', sans-serif; }
@@ -226,8 +320,6 @@
     </style>
 </head>
 <body>
-    <div id="globe-container"></div>
-    
     <nav>
     <div class="nav-container">
         <div class="hamburger" onclick="toggleMenu()">
@@ -252,8 +344,277 @@
     </script>
 
 
-    <main class="coming-soon">
-        <h1>Coming Soon</h1>
+    <main class="schedule-container">
+        <div class="page-header floating">
+            <h1>SOMUN 2025 Schedule</h1>
+            <p>Three Days of Diplomacy, Debate, and International Relations</p>
+        </div>
+
+        <div class="groups-container">
+            <!-- GROUP 1 -->
+            <div class="group-section">
+                <div class="group-header">
+                    <h2 class="group-title">GROUP 1</h2>
+                    <div class="committee-logos">
+                        <img src="hcc.png" alt="HCC" class="committee-logo">
+                        <img src="unhrc.png" alt="UNHRC" class="committee-logo">
+                        <img src="ip.png" alt="IP" class="committee-logo">
+                        <img src="disec.png" alt="DISEC" class="committee-logo">
+                        <img src="unodc.png" alt="UNODC" class="committee-logo">
+                    </div>
+                    <div class="committee-names">HCC • UNHRC • IP • DISEC • UNODC</div>
+                </div>
+
+                <!-- Friday Group 1 -->
+                <div class="day-schedule">
+                    <div class="day-header">17.10.25 – FRIDAY</div>
+                    <ul class="schedule-list">
+                        <li class="schedule-item">
+                            <span class="time">8:00AM–9:00AM</span>
+                            <span class="activity highlight-activity">Registrations</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">9:00AM–10:30AM</span>
+                            <span class="activity highlight-activity">Opening Ceremony</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">10:30AM–10:45AM</span>
+                            <span class="activity">Break</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">10:45AM–12:00PM</span>
+                            <span class="activity">Committee Session 1</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">12:00PM–12:40PM</span>
+                            <span class="activity">Lunch</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">12:40PM–2:45PM</span>
+                            <span class="activity">Committee Session 2</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">2:45PM–3:00PM</span>
+                            <span class="activity">Break</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">3:00PM–4:00PM</span>
+                            <span class="activity">Committee Session 3</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">4:00PM–4:15PM</span>
+                            <span class="activity">Dispersal</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Saturday Group 1 -->
+                <div class="day-schedule">
+                    <div class="day-header">18.10.25 – SATURDAY</div>
+                    <ul class="schedule-list">
+                        <li class="schedule-item">
+                            <span class="time">9:00AM–10:15AM</span>
+                            <span class="activity">Committee Session 4</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">10:15AM–10:30AM</span>
+                            <span class="activity">Break</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">10:30AM–12:00PM</span>
+                            <span class="activity">Committee Session 5</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">12:00PM–12:40PM</span>
+                            <span class="activity">Lunch</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">12:40PM–3:00PM</span>
+                            <span class="activity">Committee Session 6</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">3:00PM–3:30PM</span>
+                            <span class="activity highlight-activity">High Tea</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">3:30PM–5:15PM</span>
+                            <span class="activity highlight-activity">Socials</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">5:15PM–5:30PM</span>
+                            <span class="activity">Dispersal</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Sunday Group 1 -->
+                <div class="day-schedule">
+                    <div class="day-header">19.10.25 – SUNDAY</div>
+                    <ul class="schedule-list">
+                        <li class="schedule-item">
+                            <span class="time">8:30AM–10:15AM</span>
+                            <span class="activity">Committee Session 7</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">10:15AM–10:30AM</span>
+                            <span class="activity">Break</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">10:30AM–12:00PM</span>
+                            <span class="activity">Committee Session 8</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">12:00PM–12:30PM</span>
+                            <span class="activity">Lunch</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">12:30PM–2:15PM</span>
+                            <span class="activity">Committee Session 9</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">2:15PM–3:30PM</span>
+                            <span class="activity highlight-activity">High Tea & Closing Ceremony</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">3:30PM–3:45PM</span>
+                            <span class="activity">Dispersal</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- GROUP 2 -->
+            <div class="group-section">
+                <div class="group-header">
+                    <h2 class="group-title">GROUP 2</h2>
+                    <div class="committee-logos">
+                        <img src="ecosoc.png" alt="ECOSOC" class="committee-logo">
+                        <img src="unoosa.png" alt="UNOOSA" class="committee-logo">
+                        <img src="uncsw.png" alt="UNCSW" class="committee-logo">
+                        <img src="who.png" alt="WHO" class="committee-logo">
+                        <img src="loksabha.png" alt="LOK SABHA" class="committee-logo">
+                    </div>
+                    <div class="committee-names">ECOSOC • UNOOSA • UNCSW • WHO • LOK SABHA</div>
+                </div>
+
+                <!-- Friday Group 2 -->
+                <div class="day-schedule">
+                    <div class="day-header">17.10.25 – FRIDAY</div>
+                    <ul class="schedule-list">
+                        <li class="schedule-item">
+                            <span class="time">8:00AM–9:00AM</span>
+                            <span class="activity highlight-activity">Registrations</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">9:00AM–10:30AM</span>
+                            <span class="activity highlight-activity">Opening Ceremony</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">10:30AM–10:45AM</span>
+                            <span class="activity">Break</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">10:45AM–12:50PM</span>
+                            <span class="activity">Committee Session 1</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">12:50PM–1:30PM</span>
+                            <span class="activity">Lunch</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">1:30PM–2:30PM</span>
+                            <span class="activity">Committee Session 2</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">2:30PM–2:45PM</span>
+                            <span class="activity">Break</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">2:45PM–4:00PM</span>
+                            <span class="activity">Committee Session 3</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">4:00PM–4:15PM</span>
+                            <span class="activity">Dispersal</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Saturday Group 2 -->
+                <div class="day-schedule">
+                    <div class="day-header">18.10.25 – SATURDAY</div>
+                    <ul class="schedule-list">
+                        <li class="schedule-item">
+                            <span class="time">9:00AM–10:30AM</span>
+                            <span class="activity">Committee Session 4</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">10:30AM–10:45AM</span>
+                            <span class="activity">Break</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">10:45AM–12:50PM</span>
+                            <span class="activity">Committee Session 5</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">12:50PM–1:30PM</span>
+                            <span class="activity">Lunch</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">1:30PM–3:00PM</span>
+                            <span class="activity">Committee Session 6</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">3:00PM–3:30PM</span>
+                            <span class="activity highlight-activity">High Tea</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">3:30PM–5:15PM</span>
+                            <span class="activity highlight-activity">Socials</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">5:15PM–5:30PM</span>
+                            <span class="activity">Dispersal</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Sunday Group 2 -->
+                <div class="day-schedule">
+                    <div class="day-header">19.10.25 – SUNDAY</div>
+                    <ul class="schedule-list">
+                        <li class="schedule-item">
+                            <span class="time">8:30AM–10:30AM</span>
+                            <span class="activity">Committee Session 7</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">10:30AM–10:45AM</span>
+                            <span class="activity">Break</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">10:45AM–12:30PM</span>
+                            <span class="activity">Committee Session 8</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">12:30PM–1:00PM</span>
+                            <span class="activity">Lunch</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">1:00PM–2:15PM</span>
+                            <span class="activity">Committee Session 9</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">2:15PM–3:30PM</span>
+                            <span class="activity highlight-activity">High Tea & Closing Ceremony</span>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">3:30PM–3:45PM</span>
+                            <span class="activity">Dispersal</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -290,46 +651,6 @@
         </div>
     </footer>
 
-    <script>
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ 
-            alpha: true, 
-            antialias: true,
-            powerPreference: "high-performance"
-        });
-        
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        document.getElementById('globe-container').appendChild(renderer.domElement);
 
-        const geometry = new THREE.SphereGeometry(5, 32, 32);
-        const material = new THREE.MeshBasicMaterial({
-            color: 0xcc171e,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.9
-        });
-
-        const sphere = new THREE.Mesh(geometry, material);
-        scene.add(sphere);
-
-        camera.position.z = 10;
-
-        function animate() {
-            requestAnimationFrame(animate);
-            sphere.rotation.x += 0.001;
-            sphere.rotation.y += 0.002;
-            renderer.render(scene, camera);
-        }
-
-        window.addEventListener('resize', () => {
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-        });
-
-        animate();
-    </script>
 </body>
 </html>
